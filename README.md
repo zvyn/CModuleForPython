@@ -18,5 +18,6 @@ python
 >>> import spam
 >>> spam.system("echo test")
 test
+0
 >>>
 ```
