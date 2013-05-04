@@ -1,7 +1,8 @@
 #include <Python.h>
+#include <algorithm>
+#include <iostream>
 
-static PyObject * spam_system(PyObject *self, PyObject *args)
-{
+static PyObject * spam_system(PyObject *self, PyObject *args) {
     const char *command;
     int sts;
 
@@ -34,11 +35,13 @@ PyMODINIT_FUNC PyInit_spam(void)
 int
 main(int argc, char *argv[])
 {
+  wchar_t * wargv;
+  mbstowcs(wargv, argv[0], 100);
     /* Add a built-in module, before Py_Initialize */
     PyImport_AppendInittab("spam", PyInit_spam);
 
     /* Pass argv[0] to the Python interpreter */
-    Py_SetProgramName(argv[0]);
+    Py_SetProgramName(wargv);
 
     /* Initialize the Python interpreter.  Required. */
     Py_Initialize();
@@ -46,5 +49,5 @@ main(int argc, char *argv[])
     /* Optionally import the module; alternatively,
        import can be deferred until the embedded script
        imports it. */
-    //PyImport_ImportModule("spam");
+    PyImport_ImportModule("spam");
 }
