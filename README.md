@@ -13,7 +13,7 @@ algorithm.cpp
 -------------
 
 This is a proof-of-concept for using a function from the C++-STL on PyObjects. You can find a iterator-class for
-a PySequence as well as a wrapper for std::binary_search in there (see for a short usage).
+a PySequence as well as a wrapper for std::binary_search in there (see below for a short usage).
 
 I got the idea to write a own iterator-class from doomster at http://stackoverflow.com/a/16375061/2349767.
 
