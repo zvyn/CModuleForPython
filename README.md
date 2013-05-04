@@ -1,13 +1,21 @@
 Extending Python with C or C++
 ==============================
 
-This is an implementation of the HowTo at http://docs.python.org/3.3/extending/extending.html.
+spammodule.cpp
+--------------
 
-What it does
-------------
+This is an implementation of the HowTo at http://docs.python.org/3.3/extending/extending.html,
+a small example of a module for python which is written in C.
+The method(s) and description of the module is written in 'spammodule.cpp'.
+The 'setup.py' file is used to compile the module (currently it will build algoritm.cpp, but the changes are trivial).
 
-This is a small example of a module for python which is written in C. The method(s) and description of the module is written in 'spammodule.c'.
-The 'setup.py' file is used to compile the module.
+algorithm.cpp
+-------------
+
+This is a proof-of-concept for using a function from the C++-STL on PyObjects. You can find a iterator-class for
+a PySequence as well as a wrapper for std::binary_search in there (see for a short usage).
+
+I got the idea to write a own iterator-class from doomster at http://stackoverflow.com/a/16375061/2349767.
 
 Installation and usage
 ----------------------
