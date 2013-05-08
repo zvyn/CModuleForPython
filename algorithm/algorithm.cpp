@@ -1,6 +1,6 @@
 #include <Python.h>
 #include <algorithm>
-#include <iterator>
+#include "PythonSequenceIterator.cpp"
 
 class PySequenceIterator : public std::iterator<std::input_iterator_tag, int>  {
   PyObject* m_sequence;
