@@ -20,9 +20,7 @@ python setup.py build
 cd build/lib.*
 python
 >>> import algorithm
->>> if algorithm.binary_search([1,2,3],2):
-...     print("2 is in the list!")
-2 is in the list!
+>>> algorithm.binary_search([1,2,3],2) is True
+True
 >>>
 ```
-Note that the function returns a 0 (False) or 1 (True), but not a python-boolean.

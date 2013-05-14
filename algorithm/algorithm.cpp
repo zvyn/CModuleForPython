@@ -2,50 +2,18 @@
 #include <algorithm>
 #include "PythonSequenceIterator.cpp"
 
-class PySequenceIterator : public std::iterator<std::input_iterator_tag, int>  {
-  PyObject* m_sequence;
-  Py_ssize_t m_position;
-
-  public:
-  typedef PyObject* value_type;
-  PySequenceIterator(PyObject* sequence, Py_ssize_t position):
-    m_sequence(sequence), m_position(position)
-  {
-    assert(PySequence_Check(m_sequence));
-    assert(m_position >= 0);
-    assert(m_position <= PySequence_Size(m_sequence));
-  }
-
-  value_type operator*() const {
-    assert(m_position < PySequence_Size(m_sequence));
-    return PySequence_GetItem(m_sequence, m_position);
-  }
-
-  PySequenceIterator& operator++() {
-    assert(m_position <= PySequence_Size(m_sequence));
-    ++m_position;
-    return *this;
-  }
-
-  PySequenceIterator& operator+=(size_t x) {
-    m_position += x;
-    return *this;
-  }
-
-  Py_ssize_t getPosition() const { return m_position; }
-  bool operator!=(const PySequenceIterator& other) {return m_position != other.getPosition();}
-  bool operator==(const PySequenceIterator& other) {return m_position == other.getPosition();}
-};
-
 static PyObject * algorithm_binary_search(PyObject *self, PyObject *args) {
   PyObject *list = NULL;
   PyObject *value = NULL;
   if (PyArg_ParseTuple(args, "OO", &list, &value) and PySequence_Check(list)) {
     assert(PySequence_Size(list));
-    PySequenceIterator first(list, 0);
-    PySequenceIterator last(list, PySequence_Size(list));
-    unsigned const char exists = std::binary_search(first, last, value);
-    return Py_BuildValue("b", exists);
+    PythonSequenceIterator first(list, 0);
+    PythonSequenceIterator last(list, PySequence_Size(list));
+    bool exists = std::binary_search(first, last, value);
+    if (exists)
+      Py_RETURN_TRUE;
+    else
+      Py_RETURN_FALSE;
   } else {
     return NULL;
   }
