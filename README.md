@@ -15,5 +15,5 @@ This is just a implementation of the Tutorial from the Python-Documentation:
 algorithm
 ---------
 
-Example for using the std::binary_search on Python-Objects. The the README.md
+Example for using the std::binary_search on Python-Objects. See the README.md
 inside this folder for more information.
