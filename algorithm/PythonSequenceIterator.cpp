@@ -1,3 +1,5 @@
+// Copyright (2013) Milan Oberkirch <milan@oberkirch.org>
+
 #ifndef PYTHON_SEQUENCE_ITERATOR_CPP
 #define PYTHON_SEQUENCE_IPERATOR_CPP
 
@@ -5,7 +7,12 @@
 #include <algorithm>
 #include <iterator>
 
-class PythonSequenceIterator : public std::iterator<std::input_iterator_tag, int>  {
+class PythonSequenceIterator
+  : public std::iterator<std::input_iterator_tag, int>  {
+  /* This class provides an iterator for python-objects, compatible to the
+   * std::iterator-class.
+   */
+
   PyObject* m_sequence;
   Py_ssize_t m_position;
 
@@ -13,8 +20,7 @@ class PythonSequenceIterator : public std::iterator<std::input_iterator_tag, int
   typedef PyObject* value_type;
 
   PythonSequenceIterator(PyObject* sequence, Py_ssize_t position):
-    m_sequence(sequence), m_position(position)
-  {
+    m_sequence(sequence), m_position(position) {
     assert(PySequence_Check(m_sequence));
     assert(m_position >= 0);
     assert(m_position <= PySequence_Size(m_sequence));
