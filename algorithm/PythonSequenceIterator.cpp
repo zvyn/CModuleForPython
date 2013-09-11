@@ -7,11 +7,9 @@
 #include <algorithm>
 #include <iterator>
 
+// Provides an iterator for python-objects, compatible to the std::iterator.
 class PythonSequenceIterator
   : public std::iterator<std::input_iterator_tag, int>  {
-  /* This class provides an iterator for python-objects, compatible to the
-   * std::iterator-class.
-   */
 
   PyObject* m_sequence;
   Py_ssize_t m_position;
