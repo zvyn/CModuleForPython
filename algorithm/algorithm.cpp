@@ -4,6 +4,9 @@
 #include <algorithm>
 #include "PythonSequenceIterator.cpp"
 
+/* Performs a binary_search on a PySequence. Takes two arguments: the sequence
+ * and the value to search for. Returns True if value is in the sequence and
+ * False otherwise. Note that PyObjects (not C++-booleans) are returned. */
 static PyObject * algorithm_binary_search(PyObject *self, PyObject *args) {
     PyObject *list = NULL;
     PyObject *value = NULL;
@@ -21,12 +24,14 @@ static PyObject * algorithm_binary_search(PyObject *self, PyObject *args) {
     }
 }
 
+// Method description for algorithm_binary_search.
 static PyMethodDef AlgorithmMethods[] = {
     {"binary_search",  algorithm_binary_search, METH_VARARGS,
         "Perform a binary_search using the C++-implementation from stl."},
-    {NULL, NULL, 0, NULL}        /* Sentinel */
+    {NULL, NULL, 0, NULL}
 };
 
+// Module description for the module containing algorithm_binary_search.
 static struct PyModuleDef algorithmmodule = {
     PyModuleDef_HEAD_INIT,
     "algorithm",
@@ -35,12 +40,14 @@ static struct PyModuleDef algorithmmodule = {
     AlgorithmMethods
 };
 
+// Provide the __init__-function for the module.
 PyMODINIT_FUNC PyInit_algorithm(void) {
     return PyModule_Create(&algorithmmodule);
 }
 
-    int
-main(int argc, char *argv[]) {
+// Do the magic! Brew a bright and shining python-module from the definitions
+// above (*_*).
+int main(int argc, char *argv[]) {
     wchar_t * wargv = NULL;
     mbstowcs(wargv, argv[0], 100);
     /* Add a built-in module, before Py_Initialize */
